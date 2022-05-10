@@ -1,27 +1,53 @@
-# RoutesApp
+## Exercise - Routing, Authentication and Authorization
+
+## RoutesApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
 
-## Development server
+## Deployment in Netlify
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+https://peaceful-melomakarona-b889ca.netlify.app/
+I faced a problem: Browser block request to server because it is an non-https web.
 
-## Code scaffolding
+### **Objective:**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Create a login and logout workflow for a store using Angular Material along with Routing, Authentication and Authorization.
 
-## Build
+1. Create a login page
+    1. Create a form with 2 inputs: Username and Password
+    2. Validate form (Don’t allow submit without data)
+    3. Add 2 buttons: Login and Register
+    4. Create logic for login when user click on button
+    5. Connect with API and receive information to successful login or error.
+    6. Display errors.
+    7. If login is successful send the user to home page
+    8. Persist token in LocalStorage
+    9. Button Register send the user to Register page
+2. Register page
+    1. Create a form with next fields: Firstname, Last Name, Username, Email, Password, Confirm password
+    2. Validate all registration fields, all are required
+    3. Submit registration information to API
+    4. User redirected to login after registration
+3. Home page
+    1. Only user with login successfully can see this page (redirected to login if not)
+    2. Create a main layout, a header and content for application
+    3. In content for home only display word Home, center this word horizontally and vertically
+    4. When user clicks the profile image, display a dropdown with user's information and logout button.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## **Additional Information:**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+-[x] Don’t use CSS framework like bootstrap
+-[x] Use Angular Material
+-[x] Create your own CSS
+-[x] Use flexbox and/or CSS grid if necessary
+-[x] Create the design for warnings and fields
+-[x] Use Angular Material's toast to display errors.
+-[x] Use [`http://sheltered-oasis-97086.herokuapp.com/reference/`](http://sheltered-oasis-97086.herokuapp.com/reference/) ****as mock api
 
-## Running end-to-end tests
+## **Extra Credits:**
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-[x] Upload app on a free hosting service
+-[x] Lazy load modules
+-[x] Add a list of records from the API in the home view
+-[x] Implement Refresh token functionality
