@@ -4,8 +4,9 @@ import { map, Observable } from 'rxjs';
 import { ProductsResponse } from '../interfaces/productsResponse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
+
 export class ProductsAPIService {
 
   constructor(private http: HttpClient) { }

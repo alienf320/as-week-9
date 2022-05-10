@@ -1,29 +1,10 @@
-.products-container {
-  display: grid;
-  gap: 20px;
-  margin: 30px;
-  padding: 20px;
-
-  .product-container {
-    max-width: 300px;
-    transition: 0.25s;
-  }
-
-  .product-container:hover {
-    border: 3px solid orange
-  }
-}
-
-mat-card {
-  max-width: 300px;
-
-  mat-card-header {
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-  }
-
-  mat-card-subtitle {
-    font-size: 1.1rem;
+.home-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+  h1 {
+    text-align: center;
   }
 }

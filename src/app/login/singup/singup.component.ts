@@ -29,10 +29,7 @@ export class SingupComponent implements OnDestroy{
       }, { validators: PasswordValidators.matchPasswords() }),
     })
   }
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
-
+  
   get firstname() {
     return this.form.get('firstName')
   }
@@ -66,5 +63,10 @@ export class SingupComponent implements OnDestroy{
         this.route.navigate(['/auth/login'])
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    if(this.subs)
+      this.subs.unsubscribe();
   }
 }

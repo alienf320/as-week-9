@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { UserResponse } from '../interfaces/UserResponse';
 
 @Injectable({
@@ -14,6 +14,6 @@ export class UserAPIService {
   constructor(private http: HttpClient) { }
 
   getUserInfo() {
-    return this.http.get('http://sheltered-oasis-97086.herokuapp.com/auth/profile')
+    return this.http.get('http://sheltered-oasis-97086.herokuapp.com/auth/profile').subscribe(resp => this.userInfo.next(resp))
   }
 }

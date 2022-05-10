@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { Subscription } from 'rxjs';
+import { UserAPIService } from 'src/app/services/user-api.service';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +17,17 @@ export class LoginComponent implements OnDestroy {
   subs!: Subscription;
   spinner = false;
   
-  constructor(private fb: FormBuilder, private authService: AuthService, private route: Router, private snackbar: MatSnackBar) { 
-    this.form = fb.group({
-      email: ['', Validators.required ],
-      password: ['', [Validators.required ]]
-    })
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService, 
+    private route: Router, 
+    private snackbar: MatSnackBar, 
+    private userInfo: UserAPIService ) { 
+      this.form = fb.group({
+        email: ['', Validators.required ],
+        password: ['', [Validators.required ]]
+      })
   }  
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
-  }
   
   get email() {
     return this.form.get('email')
@@ -40,8 +43,9 @@ export class LoginComponent implements OnDestroy {
         response => {
           if(response.hasOwnProperty('accessToken')) {
             this.authService.loggedIn.next(true);
-            localStorage.setItem('token', response.accessToken) 
-            localStorage.setItem('tokenRefresh', response.refreshToken)
+            localStorage.setItem('token', response.accessToken) ;
+            localStorage.setItem('tokenRefresh', response.refreshToken);
+            this.userInfo.getUserInfo();
             this.route.navigate(['/home'])
           }
       }, err => {
@@ -52,5 +56,10 @@ export class LoginComponent implements OnDestroy {
 
   openSnackBar() {
     this.snackbar.open('Email or password are incorrect', '', { duration: 2000});
-  }  
+  }
+
+  ngOnDestroy(): void {
+    if(this.subs)
+      this.subs.unsubscribe();
+  }
 }

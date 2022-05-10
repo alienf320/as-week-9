@@ -6,6 +6,24 @@
     mat-mini-fab
     class="example-icon favorite-icon" 
     color="accent"
+    routerLink="/home/home"
+    routerLinkActive="active"
+    *ngIf="auth.loggedIn$ | async">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button 
+    mat-mini-fab
+    class="example-icon favorite-icon" 
+    color="accent"
+    routerLink="/home/products"
+    routerLinkActive="active"
+    *ngIf="auth.loggedIn$ | async">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+  <button 
+    mat-mini-fab
+    class="example-icon favorite-icon" 
+    color="accent"
     [matMenuTriggerFor]="menu"
     *ngIf="auth.loggedIn$ | async">
     <mat-icon>person</mat-icon>
@@ -15,11 +33,11 @@
     <div class="mini-title">User Info</div>
     <div class="info-user">
         <div>id:</div>
-        <div class="info">{{ user.id }}</div>
+        <div class="info">{{ user?.id }}</div>
         <div>username:</div>
-        <div class="info">{{ user.name }}</div>
+        <div class="info">{{ user?.name }}</div>
         <div>email:</div>
-        <div class="info">{{ user.email }}</div>
+        <div class="info">{{ user?.email }}</div>
     </div>
     
   </mat-menu>
