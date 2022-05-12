@@ -51,4 +51,5 @@
   <div class="button-container">
     <button mat-raised-button color="primary" type="submit" [disabled]="this.form.invalid">Register</button>
   </div>
+  <mat-progress-spinner  [diameter]="50" mode="indeterminate" *ngIf="spinner"></mat-progress-spinner>
 </form>

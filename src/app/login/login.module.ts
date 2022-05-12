@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SingupComponent } from './singup/singup.component';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input'; 
@@ -24,7 +24,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     CommonModule,
     LoginRoutingModule,
     RouterModule,
-    FormsModule,
     ReactiveFormsModule,
     MatIconModule,
     MatInputModule,

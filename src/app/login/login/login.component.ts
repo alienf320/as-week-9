@@ -23,7 +23,7 @@ export class LoginComponent implements OnDestroy {
     private route: Router, 
     private snackbar: MatSnackBar, 
     private userInfo: UserAPIService ) { 
-      this.form = fb.group({
+      this.form = this.fb.group({
         email: ['', Validators.required ],
         password: ['', [Validators.required ]]
       })
@@ -48,7 +48,7 @@ export class LoginComponent implements OnDestroy {
             this.userInfo.getUserInfo();
             this.route.navigate(['/home'])
           }
-      }, err => {
+      }, () => {
         this.spinner = false
         this.openSnackBar();
       }, () => this.spinner = false )

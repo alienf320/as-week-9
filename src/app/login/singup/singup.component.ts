@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { noop, Subscription } from 'rxjs';
 import { User } from 'src/app/interfaces/User';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { PasswordValidators } from 'src/app/validators/passwordSecurity';
@@ -16,6 +16,7 @@ export class SingupComponent implements OnDestroy{
 
   form!: FormGroup;  
   subs!: Subscription;
+  spinner = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private route: Router) { 
     this.form = fb.group({
@@ -26,7 +27,7 @@ export class SingupComponent implements OnDestroy{
       passwordGroup: fb.group({
         password: ['', [Validators.required, Validators.minLength(8), PasswordValidators.securityLevel]],
         passwordConfirmation: ['', Validators.required]
-      }, { validators: PasswordValidators.matchPasswords() }),
+      }, { validators: PasswordValidators.matchPasswords() })
     })
   }
   
@@ -50,6 +51,7 @@ export class SingupComponent implements OnDestroy{
   }
 
   onSubmit() {
+    this.spinner = true
     let user: User = {
       name: this.firstname!.value + ' ' + this.lastname!.value, 
       username: this.username!.value,
@@ -62,7 +64,7 @@ export class SingupComponent implements OnDestroy{
       if(data.hasOwnProperty('id')) {
         this.route.navigate(['/auth/login'])
       }
-    })
+    }, err => console.log(err) , () => this.spinner = false )
   }
 
   ngOnDestroy(): void {
