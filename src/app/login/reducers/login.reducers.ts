@@ -3,12 +3,10 @@ import { UserResponse } from "src/app/interfaces/UserResponse"
 import { LoginActions } from "../login-types"
 
 export interface UserState {
-  user: UserResponse
+  user: any
 }
 
 export const initialAuthState: UserState = {user: { }}
-
-
 
 // export const loginReducer = createReducer(
 //   initialAuthState,
@@ -29,5 +27,9 @@ export const loginReducer = createReducer(
       console.log(state, user)
       return {...state, 'user': user} 
     }
-  )
+  ),
+  on(LoginActions.logout,
+    (state) => {
+      return {...state, 'user': {}}
+    })
 )

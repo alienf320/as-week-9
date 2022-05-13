@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, take } from 'rxjs';
-import { UserResponse } from 'src/app/interfaces/UserResponse';
+import { select, Store } from '@ngrx/store';
+import { Observable, Subscription} from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { UserAPIService } from 'src/app/services/user-api.service';
+import { userSelector } from '../home/selectors/home.selectors';
+import { LoginActions } from '../login/login-types';
+import { UserState } from '../login/reducers/login.reducers';
 
 @Component({
   selector: 'app-navbar',
@@ -13,18 +16,21 @@ import { UserAPIService } from 'src/app/services/user-api.service';
 export class NavbarComponent implements OnInit {
 
   suscr!: Subscription;
-  user!: UserResponse;
+  user!: Observable<any>;
+  prueba!: any;
 
-  constructor(public  auth: AuthService, private router: Router, public userInfo: UserAPIService) { }
+  constructor(
+    public  auth: AuthService, 
+    private router: Router, 
+    public userInfo: UserAPIService, 
+    private store: Store<UserState>) { }
 
   ngOnInit(): void {
-    this.suscr = this.userInfo.userInfo$.subscribe( resp => this.user = resp )    
+    this.user = this.store.pipe( select( userSelector ) )
   }
 
   logOut() {
-    this.auth.loggedIn.next(false);
-    localStorage.setItem('token', '');
-    this.router.navigate(['auth/login'])
+    this.store.dispatch(LoginActions.logout())    
   }
 
 }

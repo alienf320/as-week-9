@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { JWT } from '../interfaces/JWT';
+import { ServerResponseI } from '../interfaces/ServerResponse';
 import { User } from '../interfaces/User';
 
 @Injectable({
@@ -16,8 +17,10 @@ export class AuthService {
 
   constructor( private http: HttpClient ) { }
 
-  logIn(email: string, password: string): Observable<any> {
-    return this.http.post( this.url, {"data": {"email": email, "password": password}}).pipe(
+  logIn(email: string, password: string): Observable<ServerResponseI> {
+    return this.http.post( this.url, {"data": {"email": email, "password": password}} )
+    .pipe(
+      map( resp => (resp as ServerResponseI)),
       tap(data => console.log(data)),
       catchError( err => throwError(new Error('ocurrió un error')) ))
   }

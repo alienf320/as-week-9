@@ -31,7 +31,7 @@ import { LoginEffects } from './login/login.effects';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    StoreModule.forRoot({'user': loginReducer}),
+    StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([LoginEffects]),
   ],

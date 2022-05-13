@@ -35,7 +35,7 @@ import { loginReducer } from './reducers/login.reducers';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     // StoreModule.forRoot([]),
-    // StoreModule.forFeature('user', loginReducer)
+    StoreModule.forFeature('user', loginReducer)
   ]
 })
 

@@ -6,6 +6,10 @@ import { HomeComponent } from './home.component';
 import { MatCardModule } from '@angular/material/card';
 import { ProductsComponent } from './products/products.component'; 
 import { ProductsAPIService } from '../services/products-api.service';
+import { StoreModule } from '@ngrx/store';
+import { homeReducer } from './reducers/home.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { HomeEffects } from './home.effects';
 
 @NgModule({
   declarations: [
@@ -15,7 +19,9 @@ import { ProductsAPIService } from '../services/products-api.service';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    MatCardModule
+    MatCardModule,
+    StoreModule.forFeature("home", homeReducer),
+    EffectsModule.forFeature([HomeEffects])
   ],
   providers: [
     ProductsAPIService

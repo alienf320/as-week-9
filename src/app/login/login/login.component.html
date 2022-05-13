@@ -14,5 +14,5 @@
     <button mat-raised-button color="primary" [disabled]="this.form.invalid" type="submit">Log In</button>
     <button mat-raised-button color="accent" routerLink="/auth/singup">Register</button>
   </div>
-  <mat-progress-spinner  [diameter]="50" mode="indeterminate" *ngIf="spinner"></mat-progress-spinner>
+  <mat-progress-spinner  [diameter]="50" mode="indeterminate" *ngIf="(spinner$ | async)"></mat-progress-spinner>
 </form>
