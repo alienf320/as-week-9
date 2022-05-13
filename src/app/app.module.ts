@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
-// import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CommonModule } from '@angular/common';
 
 import { MatMenuModule } from '@angular/material/menu'; 
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { RefreshTokenInterceptor } from './services/refresh-token.interceptor';
 import { MatButtonModule } from '@angular/material/button';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { loginReducer } from './login/reducers/login.reducers';
+import { LoginEffects } from './login/login.effects';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,6 @@ import { MatButtonModule } from '@angular/material/button';
     NavbarComponent
   ],
   imports: [
-    // CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -28,6 +31,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    StoreModule.forRoot({'user': loginReducer}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([LoginEffects]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { JWT } from '../interfaces/JWT';
 import { User } from '../interfaces/User';
 
@@ -9,17 +9,17 @@ import { User } from '../interfaces/User';
 })
 export class AuthService {
 
-  url = 'http://sheltered-oasis-97086.herokuapp.com/auth'
+  url = 'https://trainee-program-api.applaudostudios.com/api/v1/users/login'
 
   loggedIn = new BehaviorSubject(false);
   loggedIn$ = this.loggedIn.asObservable();
 
   constructor( private http: HttpClient ) { }
 
-  logIn(email: string, password: string): Observable<JWT> {
-    return this.http.post( this.url + '/login', {email, password}).pipe(
-      map(data => (data as JWT),
-      catchError( err => throwError(new Error('ocurrió un error')) )))
+  logIn(email: string, password: string): Observable<any> {
+    return this.http.post( this.url, {"data": {"email": email, "password": password}}).pipe(
+      tap(data => console.log(data)),
+      catchError( err => throwError(new Error('ocurrió un error')) ))
   }
 
   singUp(user: User) {

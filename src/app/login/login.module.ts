@@ -15,6 +15,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
+import { StoreModule } from '@ngrx/store';
+import { loginReducer } from './reducers/login.reducers';
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -31,6 +34,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatButtonModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    // StoreModule.forRoot([]),
+    // StoreModule.forFeature('user', loginReducer)
   ]
 })
 
