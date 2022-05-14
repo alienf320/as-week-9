@@ -4,16 +4,17 @@ import { HomeActions } from "../home-types"
 
 export interface ProductsState {
   products: Product[],
+  categories: any,
   loaded: boolean
 }
 
-export const initialAuthState: ProductsState = {products: [], loaded: false }
+export const initialAuthState: ProductsState = {products: [], categories: null, loaded: false }
 
 export const homeReducer = createReducer(
   initialAuthState,
   on(HomeActions.productsReceived,
     (state, {products}) => { 
-      let aux: ProductsState = {products: products, loaded: true}
+      let aux = {products: products, loaded: true}
       return {...state, ...aux} 
     }
   ),

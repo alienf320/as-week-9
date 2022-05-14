@@ -1,3 +1,38 @@
+.mat-drawer-container {
+  // width: 300px;
+  // height: 100vh;
+  min-height: 85vh;
+
+  .categories-container, .search-container {
+    padding: 0;
+    margin: 30px 5px;
+
+    h3 {
+      font-size: 1.1rem;
+      margin: 10px;
+    }
+    .category {
+      margin: 5px;
+      padding: 5px;
+    }
+    .category:hover {
+      background-color: orange;
+    }
+
+    .mat-form-field {
+      // margin: 10px;
+      .mat-form-field-wrapper {
+        padding: 0;
+      }
+    }
+    
+    .mat-raised-button {
+      // margin: 5px;
+      display: block;
+    }
+  }
+}
+
 .products-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

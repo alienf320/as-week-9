@@ -9,6 +9,16 @@ interface responseProducts {
   meta: {}
 }
 
+interface CategoriesResponse {
+  data: [
+    {
+      id: string,
+      slug: string,
+      name: string
+    }
+  ]
+}
+
 @Injectable({
   providedIn: "root"
 })
@@ -17,6 +27,8 @@ export class ProductsAPIService {
 
   url = 'https://trainee-program-api.applaudostudios.com/api/v1/products'
   urlLikes = 'https://trainee-program-api.applaudostudios.com/api/v1/likes'
+  urlCategories = 'https://trainee-program-api.applaudostudios.com/api/v1/categories'
+  
 
   constructor(private http: HttpClient) { }
 
@@ -28,5 +40,13 @@ export class ProductsAPIService {
   giveLike(id: string, action: string) {
     console.log('se supone que di like')
     return this.http.post(this.urlLikes, {"data": {"product_id": id, "kind": action}})
+  }
+
+  getCategories(): Observable<CategoriesResponse> {
+    return this.http.get<CategoriesResponse>(this.urlCategories)
+  }
+
+  getProductsByCategory(slug: string): Observable<CategoriesResponse> {
+    return this.http.get<CategoriesResponse>(`https://trainee-program-api.applaudostudios.com/api/v1/categories/${slug}`)
   }
 }

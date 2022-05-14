@@ -12,6 +12,9 @@ import { HomeEffects } from './home.effects';
 import { CartComponent } from './cart/cart.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav'; 
+import {MatExpansionModule} from '@angular/material/expansion'; 
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatInputModule,
     StoreModule.forFeature("home", homeReducer),
     EffectsModule.forFeature([HomeEffects])
   ],

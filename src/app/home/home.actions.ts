@@ -30,3 +30,7 @@ export const likeFailed = createAction(
   "[From Products] Give Like Failed",
   props<{id: string, action: string}>()
 )
+
+export const categories = createAction(
+  "[From Home] Get categories"
+)
