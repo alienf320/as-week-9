@@ -11,6 +11,11 @@ export const productsReceived = createAction(
   props<{products: Product[]}>()
 )
 
+export const productsFailed = createAction(
+  "[From Server Products] Error in request",
+  // props<{products: Product[]}>()
+)
+
 export const like = createAction(
   "[From Products] Give Like",
   props<{id: string, action: string}>()
@@ -18,5 +23,10 @@ export const like = createAction(
 
 export const dislike = createAction(
   "[From Products] Give Disike",
+  props<{id: string, action: string}>()
+)
+
+export const likeFailed = createAction(
+  "[From Products] Give Like Failed",
   props<{id: string, action: string}>()
 )

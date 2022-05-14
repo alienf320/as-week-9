@@ -31,13 +31,13 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="logOut()">Log Out</button>
     <div class="mini-title">User Info</div>
-    <div class="info-user" *ngIf="user | async as user$">
+    <div class="info-user" *ngIf="user | async as userV$">
         <div>id:</div>
-        <div class="info">{{ user$.user.id }}</div>
+        <div class="info">{{ userV$.user.id }}</div>
         <div>username:</div>
-        <div class="info">{{ user$.user.name }}</div>
+        <div class="info">{{ userV$.user.name }}</div>
         <div>email:</div>
-        <div class="info">{{ user$.user.email }}</div>
+        <div class="info">{{ userV$.user.email }}</div>
     </div>
     
   </mat-menu>

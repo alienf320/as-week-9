@@ -7,35 +7,57 @@ import { AuthService } from "../services/auth-service.service";
 import { ProductsAPIService } from "../services/products-api.service";
 import { HomeActions } from "./home-types";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class HomeEffects {
 
-  waitingResponse = new BehaviorSubject(false);
-  waitingResponse$ = this.waitingResponse.asObservable();
+  ProductsLoaded = new BehaviorSubject(false);
+  ProductsLoaded$ = this.ProductsLoaded.asObservable();
   
-  login$ = createEffect( () => 
+  productsRequest$ = createEffect( () => 
     this.actions$.pipe(
     ofType(HomeActions.getProducts),
     switchMap( () => {
       return this.productsServices.getProducts().pipe(
-        // tap( action => console.log('effect getProducts', action.data)),
+        tap( action => {
+          this.ProductsLoaded.next(true);
+          console.log('effect getProducts', this.ProductsLoaded.value)
+        }),
         map( resp => HomeActions.productsReceived( {products: resp.data} )),
-        // catchError( () => {
-        //   this.waitingResponse.next(false);
-        //   return of(HomeActions.loginResponseError)})
+        catchError( () => {
+          return of(HomeActions.productsFailed)})
       );
     }))
   );
 
-  like$ = createEffect( () =>
-    this.actions$.pipe(
+  
+  like$ = createEffect( () => {
+    let id: string;
+    let word: string;
+    return this.actions$.pipe(
       ofType(HomeActions.like || HomeActions.dislike),
+      tap(action => {
+        id = action.id;
+        word = action.action
+      }),
       switchMap( (action) => {
         return this.productsServices.giveLike(action.id, action.action)}
-      )
-    ), {dispatch: false}
+      ),
+      catchError( (err) => {
+        console.log('catchError', id, word)
+        return of(HomeActions.likeFailed({id, action: word}))
+      }),
+    )}, {dispatch: false}
   )
 
+  productsResponse$ = createEffect( () =>
+    this.actions$.pipe(
+      ofType(HomeActions.productsFailed),
+
+    ), {dispatch: false}
+  )
+      
   constructor(
     private actions$: Actions, 
     private auth: AuthService,

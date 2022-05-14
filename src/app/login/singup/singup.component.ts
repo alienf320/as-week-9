@@ -51,20 +51,20 @@ export class SingupComponent implements OnDestroy{
   }
 
   onSubmit() {
-    this.spinner = true
-    let user: User = {
-      name: this.firstname!.value + ' ' + this.lastname!.value, 
-      username: this.username!.value,
-      email: this.email!.value, 
-      password: this.password!.value, 
-      passwordConfirmation: this.passwordConfirmation!.value 
-    }
+    // this.spinner = true
+    // let user: User = {
+    //   name: this.firstname!.value + ' ' + this.lastname!.value, 
+    //   username: this.username!.value,
+    //   email: this.email!.value, 
+    //   password: this.password!.value, 
+    //   passwordConfirmation: this.passwordConfirmation!.value 
+    // }
 
-    this.subs = this.authService.singUp(user).subscribe( data => {
-      if(data.hasOwnProperty('id')) {
-        this.route.navigate(['/auth/login'])
-      }
-    }, err => console.log(err) , () => this.spinner = false )
+    // this.subs = this.authService.singUp(user).subscribe( data => {
+    //   if(data.hasOwnProperty('id')) {
+    //     this.route.navigate(['/auth/login'])
+    //   }
+    // }, err => console.log(err) , () => this.spinner = false )
   }
 
   ngOnDestroy(): void {

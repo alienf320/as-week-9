@@ -9,7 +9,9 @@ interface responseProducts {
   meta: {}
 }
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 
 export class ProductsAPIService {
 
@@ -24,6 +26,7 @@ export class ProductsAPIService {
   }
 
   giveLike(id: string, action: string) {
+    console.log('se supone que di like')
     return this.http.post(this.urlLikes, {"data": {"product_id": id, "kind": action}})
   }
 }

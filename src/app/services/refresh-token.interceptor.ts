@@ -22,7 +22,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     let token = localStorage.getItem('token')
     if(token) {
       const req = this.addToken(request, token)
-      console.log('req', req)
+      // console.log('req', req)
       
       return next.handle(req).pipe( catchError( (err: HttpErrorResponse) => {
           if(err.status === 401 && !this.isRefreshing) {

@@ -19,7 +19,7 @@ export class ProductsComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
   
   ngOnInit(): void {    
-    this.store.dispatch(HomeActions.getProducts())
+    // this.store.dispatch(HomeActions.getProducts())
     this.products = this.store.pipe( 
       select( state => state.home.products ), 
       // tap( data => console.log(data)) 
@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit {
   }
 
   like(id: string) {
-    console.log('id', id)
+    console.log('id', id);
     this.store.dispatch(HomeActions.like({id, action: "up"}))
   }
 
