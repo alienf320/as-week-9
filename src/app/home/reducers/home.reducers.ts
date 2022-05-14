@@ -15,5 +15,19 @@ export const homeReducer = createReducer(
     (state, {products}) => { 
       return {...state, products: products} 
     }
-  )
+  ),
+  on(HomeActions.like,
+    (state, {id}) => { 
+      let idx = state.products.findIndex( prod => prod.id == id );
+      let aux = JSON.parse(JSON.stringify(state));
+      aux.products[idx].likes_count = (+aux.products[idx].likes_count + 1) + '';
+      return {...state, products: aux.products} 
+    }),
+  on(HomeActions.dislike,
+    (state, {id}) => { 
+      let idx = state.products.findIndex( prod => prod.id == id );
+      let aux = JSON.parse(JSON.stringify(state));
+      aux.products[idx].likes_count = (+aux.products[idx].likes_count - 1) + '';
+      return {...state, products: aux.products} 
+    })
 )

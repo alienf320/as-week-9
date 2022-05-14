@@ -10,16 +10,22 @@ import { StoreModule } from '@ngrx/store';
 import { homeReducer } from './reducers/home.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { HomeEffects } from './home.effects';
+import { CartComponent } from './cart/cart.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    ProductsComponent
+    ProductsComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     MatCardModule,
+    MatButtonModule,
+    MatIconModule,
     StoreModule.forFeature("home", homeReducer),
     EffectsModule.forFeature([HomeEffects])
   ],

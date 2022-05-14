@@ -18,7 +18,7 @@ export class HomeEffects {
     ofType(HomeActions.getProducts),
     switchMap( () => {
       return this.productsServices.getProducts().pipe(
-        tap( action => console.log('effect getProducts', action.data)),
+        // tap( action => console.log('effect getProducts', action.data)),
         map( resp => HomeActions.productsReceived( {products: resp.data} )),
         // catchError( () => {
         //   this.waitingResponse.next(false);
@@ -26,6 +26,15 @@ export class HomeEffects {
       );
     }))
   );
+
+  like$ = createEffect( () =>
+    this.actions$.pipe(
+      ofType(HomeActions.like || HomeActions.dislike),
+      switchMap( (action) => {
+        return this.productsServices.giveLike(action.id, action.action)}
+      )
+    ), {dispatch: false}
+  )
 
   constructor(
     private actions$: Actions, 

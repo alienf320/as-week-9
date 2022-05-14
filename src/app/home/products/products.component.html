@@ -1,11 +1,19 @@
+<div class="title">Products</div>
 <div class="products-container">
-  <!-- <div class="test">{{(test | async | json)}} </div> -->
   <div class="product-container" *ngFor="let prod of (products | async)">
     <mat-card>
       <mat-card-header>
-        <div mat-card-avatar></div>
         <mat-card-title>{{prod.name}}</mat-card-title>
         <mat-card-subtitle>{{prod.description}}</mat-card-subtitle>
+        <img src="../../../assets/image-not-found.png" alt="">
+        <mat-card-actions>    
+          <button mat-mini-fab color="accent" (click)="like(prod.id)"> <mat-icon>thumb_up</mat-icon></button>
+          <button mat-mini-fab color="accent" (click)="dislike(prod.id)"> <mat-icon>thumb_down</mat-icon></button>
+          <button mat-raised-button color="accent"> {{prod.likes_count}} <mat-icon>favorite</mat-icon></button>
+        </mat-card-actions>
+        <mat-card-actions>
+          <button mat-raised-button color="accent">BUY</button>
+        </mat-card-actions>
       </mat-card-header>
     </mat-card>
     

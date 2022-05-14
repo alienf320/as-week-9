@@ -9,7 +9,7 @@ export const login = createAction(
 
 export const loginResponse = createAction(
   "[From Login Form] Response of login",
-  props<{user: UserResponse}>()
+  props<{user: {token: string, user: UserResponse}}>()
 )
 
 export const loginResponseError = createAction(

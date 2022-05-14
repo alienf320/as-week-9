@@ -22,6 +22,8 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     let token = localStorage.getItem('token')
     if(token) {
       const req = this.addToken(request, token)
+      console.log('req', req)
+      
       return next.handle(req).pipe( catchError( (err: HttpErrorResponse) => {
           if(err.status === 401 && !this.isRefreshing) {
             this.isRefreshing = true;
@@ -48,7 +50,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
   private addToken(request: HttpRequest<any>, token: string) {
     return request.clone({
       setHeaders: {
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`
       }
     })}
 }

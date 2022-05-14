@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { Product } from 'src/app/interfaces/Product';
-import { ProductsAPIService } from 'src/app/services/products-api.service';
-import { UserAPIService } from 'src/app/services/user-api.service';
 import { AppState } from 'src/app/shared/appState.interface';
+import { HomeActions } from '../home-types';
 
 
 @Component({
@@ -13,24 +12,27 @@ import { AppState } from 'src/app/shared/appState.interface';
   styleUrls: ['./products.component.scss']
 })
 
-export class ProductsComponent implements OnInit, OnDestroy {
+export class ProductsComponent implements OnInit {
 
   products!: Observable<Product[]>;
-  test!: any;
-  userInfo!: any;
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private productService: ProductsAPIService, private userInfoService: UserAPIService, private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) { }
   
   ngOnInit(): void {    
-    this.products = this.store.pipe( select( state => state.home.products ) )
-    // this.products = this.store.pipe( select( selectProducts ))
-    // this.productService.getProducts().pipe(takeUntil(this.destroy$)).subscribe( data => this.products = data )
-    // this.userInfoService.getUserInfo().pipe(takeUntil(this.destroy$)).subscribe( data => this.userInfoService.userInfo.next(data) )
+    this.store.dispatch(HomeActions.getProducts())
+    this.products = this.store.pipe( 
+      select( state => state.home.products ), 
+      // tap( data => console.log(data)) 
+    )
   }
-  
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }  
+
+  like(id: string) {
+    console.log('id', id)
+    this.store.dispatch(HomeActions.like({id, action: "up"}))
+  }
+
+  dislike(id: string) {
+    this.store.dispatch(HomeActions.dislike({id, action: "down"}))
+  }
+
 }

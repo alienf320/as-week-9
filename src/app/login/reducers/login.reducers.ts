@@ -8,24 +8,12 @@ export interface UserState {
 
 export const initialAuthState: UserState = {user: { }}
 
-// export const loginReducer = createReducer(
-//   initialAuthState,
-//   on(LoginActions.login, 
-//     (state, action) => {
-//     return {
-//       id: state.id,
-//       username: action.username,
-//       email: action.email
-//     }
-//   })
-// ) 
-
 export const loginReducer = createReducer(
   initialAuthState,
   on(LoginActions.loginResponse,
     (state, {user}) => { 
       console.log(state, user)
-      return {...state, 'user': user} 
+      return {...state, 'user': user.user} 
     }
   ),
   on(LoginActions.logout,

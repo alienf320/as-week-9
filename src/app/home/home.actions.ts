@@ -11,7 +11,12 @@ export const productsReceived = createAction(
   props<{products: Product[]}>()
 )
 
-// export const loginResponseError = createAction(
-//   "[From Login Form] Login Error",
-//   // props<{user: UserResponse}>()
-// )
+export const like = createAction(
+  "[From Products] Give Like",
+  props<{id: string, action: string}>()
+)
+
+export const dislike = createAction(
+  "[From Products] Give Disike",
+  props<{id: string, action: string}>()
+)

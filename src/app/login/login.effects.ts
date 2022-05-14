@@ -17,7 +17,7 @@ export class LoginEffects {
     ofType(LoginActions.login),
     switchMap( (action) => {
       return this.auth.logIn(action.email, action.password).pipe(
-        map( resp => LoginActions.loginResponse( {user: resp.data.user} )),
+        map( resp => LoginActions.loginResponse( {user: resp.data} )),
         catchError( () => {
           this.waitingResponse.next(false);
           return of(LoginActions.loginResponseError)})
@@ -32,7 +32,9 @@ export class LoginEffects {
         this.waitingResponse.next(false);
         this.auth.loggedIn.next(true);
         this.router.navigate(['/home']);
-        localStorage.setItem('user', JSON.stringify(action.user))} 
+        localStorage.setItem('token', JSON.stringify(action.user.token).replace('"', ''));
+        localStorage.setItem('user', JSON.stringify(action.user.user))} 
+        
       )),
     {dispatch: false});
 
