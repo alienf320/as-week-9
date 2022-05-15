@@ -29,5 +29,6 @@ export interface Product {
   image: {
     id: 0,
     url: string
-  }
+  },
+  amount: number
 }

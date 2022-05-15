@@ -7,10 +7,10 @@ export const selectProductsFeature = (state: AppState) => state.home;
  
 export const selectProducts = createSelector(
   selectProductsFeature,
-  state => state.products
+  state => state.home.products
 );
 
 export const selectProductsLoaded = createSelector(
   selectProductsFeature,
-  state => state.loaded
+  state => state.home.loaded
 );

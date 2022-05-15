@@ -22,7 +22,6 @@ export class HomeEffects {
       return this.productsServices.getProducts().pipe(
         tap( action => {
           this.ProductsLoaded.next(true);
-          console.log('effect getProducts', this.ProductsLoaded.value)
         }),
         map( resp => HomeActions.productsReceived( {products: resp.data} )),
         catchError( () => {

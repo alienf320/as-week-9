@@ -34,3 +34,17 @@ export const likeFailed = createAction(
 export const categories = createAction(
   "[From Home] Get categories"
 )
+
+export const getAllCartProducts = createAction(
+  "[From Cart] Get All Products"
+)
+
+export const buyItem = createAction(
+  "[From Products] Buy Product",
+  props<{product: Product}>()
+)
+
+export const changeAmountItem = createAction(
+  "[From Cart] Increase Item",
+  props<{id: string, action: string}>()
+)

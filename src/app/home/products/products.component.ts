@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, Subscription, tap } from 'rxjs';
 import { Category } from 'src/app/interfaces/Category';
@@ -21,21 +22,23 @@ export class ProductsComponent implements OnInit {
   showCategories = false;
   subs!: Subscription;
 
-  constructor(private store: Store<AppState>, private productsService: ProductsAPIService) { }
+  constructor(
+    private store: Store<AppState>, 
+    private productsService: ProductsAPIService,
+    private snackbar: MatSnackBar) { }
   
   ngOnInit(): void {    
     // this.store.dispatch(HomeActions.getProducts())
     this.loadAllProducts();
     this.subs = this.productsService.getCategories()
     .subscribe( resp => resp.data.forEach( elem => {
-      console.log(elem)
       this.categories.push(elem); 
     }))
   }
   
   loadAllProducts() {
     this.products = this.store.pipe( 
-      select( state => state.home.products ), 
+      select( state => state.home.home.products ), 
       // tap( data => console.log(data)) 
     )
   }
@@ -51,7 +54,7 @@ export class ProductsComponent implements OnInit {
 
   filterByName(name: string) {
     this.products = this.store.pipe( 
-      select( state => state.home.products.filter(product => product.name.toLowerCase().match(name) ) ), 
+      select( state => state.home.home.products.filter(product => product.name.toLowerCase().match(name) ) ), 
       // tap( data => console.log(data)) 
     )
   }
@@ -62,6 +65,14 @@ export class ProductsComponent implements OnInit {
     //   // tap( data => console.log(data)) 
     // this.products = this.productsService.getProductsByCategory(slug).subscribe()
     // )
+  }
+
+  buy(product: Product) {
+    this.store.dispatch(HomeActions.buyItem({product}))
+  }
+
+  openSnackBar(product: Product) {
+    this.snackbar.open(`${product.name} has been added to your shopping cart`, '' ,{ duration: 3000, panelClass: ['snack']});
   }
 
 }

@@ -1,6 +1,6 @@
-<div class="title">Products</div>
+<h2 class="title">Products</h2>
 
-<button mat-fab color="primary" (click)="drawer.toggle()"><mat-icon>group_work</mat-icon></button>
+<button mat-fab color="primary" class="floating" (click)="drawer.toggle()"><mat-icon>group_work</mat-icon></button>
 
 <mat-drawer-container autosize>
   
@@ -35,7 +35,7 @@
             <button mat-raised-button color="accent"> {{prod.likes_count}} <mat-icon>favorite</mat-icon></button>
           </mat-card-actions>
           <mat-card-actions>
-            <button mat-raised-button color="accent">BUY</button>
+            <button mat-raised-button color="primary" (click)="buy(prod)" (click)="openSnackBar(prod)"><mat-icon>add_shopping_cart</mat-icon></button>
           </mat-card-actions>
         </mat-card-header>
       </mat-card>

@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 
-import { UserAPIService } from 'src/app/services/user-api.service';
 import { UserState } from '../reducers/login.reducers';
 import { Store } from '@ngrx/store';
 import { LoginActions } from '../login-types';
@@ -23,10 +20,7 @@ export class LoginComponent {
   
   constructor(
     private fb: FormBuilder, 
-    private authService: AuthService, 
-    private route: Router, 
     private snackbar: MatSnackBar, 
-    private userInfo: UserAPIService,
     private store: Store<UserState>,
     private loginEffects: LoginEffects, ) { 
       this.form = this.fb.group({
