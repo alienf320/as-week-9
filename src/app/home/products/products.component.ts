@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription, tap } from 'rxjs';
@@ -18,8 +19,10 @@ export class ProductsComponent implements OnInit {
 
   products!: Observable<Product[]>;
   categories: Category[] = [];
+  currentItemToShow$!: Observable<Product[]>;
   showCategories = false;
   subs!: Subscription;
+  actualPage!: PageEvent;
 
   constructor(
     private store: Store<AppState>, 
@@ -28,7 +31,8 @@ export class ProductsComponent implements OnInit {
   
   ngOnInit(): void {    
     // this.store.dispatch(HomeActions.getProducts())
-    this.loadAllProducts();
+    // this.loadAllProducts();
+    this.onPageChange({pageIndex: 0, pageSize: 10, length: 100});
     this.subs = this.productsService.getCategories()
     .subscribe( resp => resp.data.forEach( elem => {
       this.categories.push(elem); 
@@ -39,6 +43,16 @@ export class ProductsComponent implements OnInit {
     this.products = this.store.pipe( 
       select( state => state.home.home.products ), 
       // tap( data => console.log(data)) 
+    )
+  }
+
+  onPageChange($event: PageEvent) {
+    this.actualPage = $event;
+    this.products =  this.store.pipe(
+      select( state => state.home.home.products
+        .slice($event.pageIndex * $event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize) 
+      ),
+      tap( (p)=> console.log(p))
     )
   }
 
@@ -53,7 +67,10 @@ export class ProductsComponent implements OnInit {
 
   filterByName(name: string) {
     this.products = this.store.pipe( 
-      select( state => state.home.home.products.filter(product => product.name.toLowerCase().match(name) ) ), 
+      select( state => state.home.home.products
+        .filter(product => product.name.toLowerCase().match(name) )
+        .slice(this.actualPage.pageIndex * this.actualPage.pageSize, this.actualPage.pageIndex*this.actualPage.pageSize + this.actualPage.pageSize)
+      ), 
       // tap( data => console.log(data)) 
     )
   }

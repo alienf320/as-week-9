@@ -17,6 +17,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ProductDetailComponent } from './product-detail/product-detail.component'; 
+import {MatPaginatorModule} from '@angular/material/paginator'; 
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     MatExpansionModule,
     MatInputModule,
     MatSnackBarModule,
+    MatPaginatorModule,
     StoreModule.forFeature("home", reducers),
     EffectsModule.forFeature([HomeEffects])
   ],

@@ -4,6 +4,10 @@ h2 {
   margin-top: 30px;
 }
 
+mat-paginator {
+  font-size: 1.1rem;
+}
+
 .floating {
   position: absolute;
   top: 75px;
@@ -12,7 +16,7 @@ h2 {
 }
 
 .mat-drawer-container {
-  min-height: 85vh;
+  min-height: 75vh;
 
   .categories-container, .search-container {
     padding: 0;
