@@ -16,6 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './login/login.effects';
+import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoginEffects } from './login/login.effects';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
+    MatButtonToggleModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([LoginEffects]),

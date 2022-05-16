@@ -1,3 +1,6 @@
+$primary-color: #673ab7;
+$accent-color: #ffd740;
+
 .mat-toolbar {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   position: fixed;
@@ -30,8 +33,14 @@
   margin: 0 15px;
 }
 
+.mat-flat-button {
+  height: 62px;
+  border-radius: 0;
+}
+
 .active {
-  background-color: white;
+  background-color: #ffd740;
+  color: #673ab7;
 }
 
 .info-user {
