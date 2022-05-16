@@ -21,7 +21,7 @@ export class AuthService {
     return this.http.post( this.url, {"data": {"email": email, "password": password}} )
     .pipe(
       map( resp => (resp as ServerResponseI)),
-      tap(data => console.log(data)),
+      // tap(data => console.log(data)),
       catchError( err => throwError(new Error('ocurrió un error')) ))
   }
 

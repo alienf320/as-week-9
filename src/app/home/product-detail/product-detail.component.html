@@ -1,0 +1,27 @@
+<div class="product-container">
+  <div class="product-container" *ngFor="let prod of (products | async)">
+    <mat-card>
+      <mat-card-header>
+        <img src="../../../assets/image-not-found.png" alt="">
+        <div class="sub-container">
+          <mat-card-title> {{prod.name}} </mat-card-title>
+          <mat-card-subtitle>{{prod.description}}</mat-card-subtitle>
+          <mat-card-content>
+            <div class="price"> price: $0,99 </div>
+            <div class="detail"> Here could be a more detail description about the product </div>
+            <div class="detail"> Released: {{prod.published_at | date}} </div>
+          </mat-card-content>
+          <mat-card-actions>    
+            <button mat-mini-fab color="accent" (click)="like(prod.id)"> <mat-icon>thumb_up</mat-icon></button>
+            <button mat-mini-fab color="accent" (click)="dislike(prod.id)"> <mat-icon>thumb_down</mat-icon></button>
+            <button mat-raised-button color="accent">{{prod.likes_count}} <mat-icon>favorite</mat-icon></button>
+          </mat-card-actions>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="buy(prod)" (click)="openSnackBar(prod)"><mat-icon>add_shopping_cart</mat-icon></button>
+          </mat-card-actions>
+        </div>
+      </mat-card-header>
+    </mat-card>
+    
+  </div>
+</div>

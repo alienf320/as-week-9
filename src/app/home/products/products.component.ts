@@ -1,13 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subject, Subscription, tap } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { Category } from 'src/app/interfaces/Category';
 import { Product } from 'src/app/interfaces/Product';
 import { ProductsAPIService } from 'src/app/services/products-api.service';
 import { AppState } from 'src/app/shared/appState.interface';
 import { HomeActions } from '../home-types';
-
 
 @Component({
   selector: 'app-products',
@@ -72,7 +71,7 @@ export class ProductsComponent implements OnInit {
   }
 
   openSnackBar(product: Product) {
-    this.snackbar.open(`${product.name} has been added to your shopping cart`, '' ,{ duration: 3000, panelClass: ['snack']});
+    this.snackbar.open(`${product.name} has been added to your shopping cart`, '' ,{ duration: 3000, panelClass: ['snack-light']});
   }
 
 }

@@ -15,12 +15,14 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav'; 
 import {MatExpansionModule} from '@angular/material/expansion'; 
 import { MatInputModule } from '@angular/material/input';
-import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ProductDetailComponent } from './product-detail/product-detail.component'; 
 
 @NgModule({
   declarations: [
     ProductsComponent,
-    CartComponent
+    CartComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,

@@ -20,7 +20,6 @@ export class appResolver implements Resolve<any> {
       select(selectProductsLoaded),
       tap( loaded => {
         if(!loaded) {
-          console.log('disparo el getProducts', loaded)
           this.store.dispatch(HomeActions.getProducts())          
         }
       }),

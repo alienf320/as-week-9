@@ -1,11 +1,12 @@
 <h2>My cart</h2>
+<div class="noItem" *ngIf="(total$ | async) == 0">Empty Cart</div>
 <div class="products-container" *ngIf="products$ | async as prod">
   <div class="product" *ngFor="let product of prod">
     <h4>{{product.product.name}}</h4>
     <div class="amount">
-      <button mat-mini-fab (click)="increase(product.product.id)">+</button>
+      <button mat-mini-fab (click)="increase(product.product.id)"> <mat-icon>add</mat-icon></button>
       <input mat-input class="input-amount" [value]="product.amount" #amount>
-      <button mat-mini-fab (click)="decrease(product.product.id)">-</button>
+      <button mat-mini-fab (click)="decrease(product.product.id)"> <mat-icon>remove</mat-icon></button>
     </div>
     <div class="price">{{(product.price * +amount.value) | currency}}</div>
   </div>

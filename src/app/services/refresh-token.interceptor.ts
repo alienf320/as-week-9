@@ -7,7 +7,8 @@ import {
   HttpErrorResponse,
   HttpClient
 } from '@angular/common/http';
-import { BehaviorSubject, catchError, filter, Observable, switchMap, take } from 'rxjs';
+import { BehaviorSubject, catchError, filter, map, Observable, switchMap, take, tap } from 'rxjs';
+import { ServerResponseI } from '../interfaces/ServerResponse';
 
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor {
@@ -24,14 +25,15 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
       const req = this.addToken(request, token)
       // console.log('req', req)
       
-      return next.handle(req).pipe( catchError( (err: HttpErrorResponse) => {
+      return next.handle(req).pipe( tap(() => console.log(req)), catchError( (err: HttpErrorResponse) => {
           if(err.status === 401 && !this.isRefreshing) {
             this.isRefreshing = true;
-            return this.http.post('http://sheltered-oasis-97086.herokuapp.com/auth/refresh', {}, {withCredentials: true}).pipe(
-              switchMap( (res:any) => {
-                localStorage.setItem('token', res.accessToken);
-                this.refreshTokenSubject.next(res.accessToken)
-                return next.handle( this.addToken(req, res.accessToken))
+            return this.http.post( "https://trainee-program-api.applaudostudios.com/api/v1/users/login", {"data": {"email": "trainee1@example.com", "password": "Trainee$1"}} )
+            .pipe(
+              map( resp => (resp as ServerResponseI)),
+              switchMap( (res) => {
+                localStorage.setItem('token', res.data.token);
+                return next.handle( this.addToken(req, res.data.token))
               })
             )
           } else {

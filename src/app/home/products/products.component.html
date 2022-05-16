@@ -26,7 +26,7 @@
     <div class="product-container" *ngFor="let prod of (products | async)">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>{{prod.name}}</mat-card-title>
+          <mat-card-title> <a [routerLink]="prod.slug"> {{prod.name}}</a></mat-card-title>
           <mat-card-subtitle>{{prod.description}}</mat-card-subtitle>
           <img src="../../../assets/image-not-found.png" alt="">
           <mat-card-actions>    

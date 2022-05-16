@@ -1,3 +1,4 @@
+
 <mat-toolbar color="primary">
   <mat-icon> traffic</mat-icon>
   <span>AppRoutes</span>
@@ -8,6 +9,7 @@
     color="accent"
     routerLink="/home/home"
     routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
     *ngIf="auth.loggedIn$ | async">
     <mat-icon>home</mat-icon>
   </button>
@@ -16,7 +18,7 @@
     class="example-icon favorite-icon" 
     color="accent"
     routerLink="/home/mycart"
-    routerLinkActive="active"
+    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
     *ngIf="auth.loggedIn$ | async">
     <mat-icon>shopping_cart</mat-icon>
   </button>
