@@ -1,6 +1,7 @@
 .product-container {
   width: 60vw;
   margin: 40px auto;
+  padding: 10px;
   
   mat-card {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -10,9 +11,13 @@
       justify-content: space-between;
       align-items: center;
       
-      img {
-        width: 60%;
-        margin: 0 15px;
+      .img-container {
+        max-height: 310px;        
+        img {
+          height: 310px;
+          width: 90%;
+          object-fit: contain;
+        }
       }
 
       .sub-container {
@@ -26,6 +31,7 @@
 
         mat-card-subtitle {
           font-size: 1.1rem;
+          margin: 0
         }
       
         mat-card-actions {
@@ -47,8 +53,9 @@
 
         .price {
           font-weight: bold;
-          margin: 8px auto;
-          font-size: 1.1rem;
+          margin: 20px auto;
+          font-size: 1.6rem;
+          text-align: center;
         }
 
         .detail {

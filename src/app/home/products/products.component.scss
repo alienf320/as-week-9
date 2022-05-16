@@ -16,7 +16,7 @@ mat-paginator {
 }
 
 .mat-drawer-container {
-  min-height: 75vh;
+  min-height: 80vh;
 
   .categories-container, .search-container {
     padding: 0;
@@ -55,7 +55,7 @@ mat-paginator {
   padding: 20px;
 
   .product-container {
-    max-width: 300px;
+    min-width: 300px;
     max-height: 473px;
     transition: 0.25s;
 
@@ -72,6 +72,16 @@ mat-paginator {
       mat-card-subtitle {
         font-size: 1.1rem;
       }
+
+      .img-container {
+        max-height: 230px;        
+        img {
+          height: 230px;
+          width: 280px;
+          object-fit: contain;
+        }
+      }
+
     
       mat-card-actions {
         display: flex;

@@ -1,18 +1,20 @@
-<form [formGroup]="form" (ngSubmit)="logIn()">
-  <h2>Log In</h2>
-  <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email">
-    <mat-error>This field is required</mat-error>
-  </mat-form-field>
-  <mat-form-field  appearance="outline">
-    <mat-label>Password</mat-label>
-    <input matInput type="password" formControlName="password">
-    <mat-error>This field is required</mat-error>
-  </mat-form-field>
-  <div class="button-container">
-    <button mat-raised-button color="primary" [disabled]="this.form.invalid" type="submit">Log In</button>
-    <button mat-raised-button color="accent" routerLink="/auth/singup">Register</button>
-  </div>
-  <mat-progress-spinner  [diameter]="50" mode="indeterminate" *ngIf="(spinner$ | async)"></mat-progress-spinner>
-</form>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="logIn()">
+    <h2>Log In</h2>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error>This field is required</mat-error>
+    </mat-form-field>
+    <mat-form-field  appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-error>This field is required</mat-error>
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="primary" [disabled]="this.form.invalid" type="submit">Log In</button>
+      <button mat-raised-button color="accent" routerLink="/auth/singup">Register</button>
+    </div>
+    <mat-progress-spinner  [diameter]="50" mode="indeterminate" *ngIf="(spinner$ | async)"></mat-progress-spinner>
+  </form>
+</div>

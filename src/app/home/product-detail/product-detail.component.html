@@ -2,12 +2,14 @@
   <div class="product-container" *ngFor="let prod of (products | async)">
     <mat-card>
       <mat-card-header>
-        <img src="../../../assets/image-not-found.png" alt="">
+        <div class="img-container">
+          <img [src]="prod.image.url" alt="" srcset="">
+        </div>
         <div class="sub-container">
           <mat-card-title> {{prod.name}} </mat-card-title>
           <mat-card-subtitle>{{prod.description}}</mat-card-subtitle>
           <mat-card-content>
-            <div class="price"> price: $0,99 </div>
+            <div class="price"> {{prod.master.price | currency}} </div>
             <div class="detail"> Here could be a more detail description about the product </div>
             <div class="detail"> Released: {{prod.published_at | date}} </div>
           </mat-card-content>

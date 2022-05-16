@@ -30,8 +30,6 @@ export class ProductsComponent implements OnInit {
     private snackbar: MatSnackBar) { }
   
   ngOnInit(): void {    
-    // this.store.dispatch(HomeActions.getProducts())
-    // this.loadAllProducts();
     this.onPageChange({pageIndex: 0, pageSize: 10, length: 100});
     this.subs = this.productsService.getCategories()
     .subscribe( resp => resp.data.forEach( elem => {
@@ -41,7 +39,9 @@ export class ProductsComponent implements OnInit {
   
   loadAllProducts() {
     this.products = this.store.pipe( 
-      select( state => state.home.home.products ), 
+      select( state => state.home.home.products
+        .slice(this.actualPage.pageIndex * this.actualPage.pageSize, this.actualPage.pageIndex*this.actualPage.pageSize + this.actualPage.pageSize)  ), 
+      
       // tap( data => console.log(data)) 
     )
   }
@@ -76,11 +76,15 @@ export class ProductsComponent implements OnInit {
   }
 
   filter(slug: string) {
-    // this.products = this.store.pipe( 
-    //   select( state => state.home.products.filter(product => product.category == slug) ), 
-    //   // tap( data => console.log(data)) 
+    this.products = this.store.pipe( 
+      select( state => state.home.home.products
+        .filter(product => product.category.slug == slug)
+        // .slice(this.actualPage.pageIndex * this.actualPage.pageSize, this.actualPage.pageIndex*this.actualPage.pageSize + this.actualPage.pageSize)
+      ), 
+      
+      // tap( data => console.log(data)) 
     // this.products = this.productsService.getProductsByCategory(slug).subscribe()
-    // )
+    )
   }
 
   buy(product: Product) {
@@ -88,7 +92,7 @@ export class ProductsComponent implements OnInit {
   }
 
   openSnackBar(product: Product) {
-    this.snackbar.open(`${product.name} has been added to your shopping cart`, '' ,{ duration: 3000, panelClass: ['snack-light']});
+    this.snackbar.open(`${product.name} has been added to your shopping cart`, '' ,{ duration: 2000, panelClass: ['snack-light']});
   }
 
 }

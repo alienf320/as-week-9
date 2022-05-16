@@ -3,13 +3,14 @@ $primary-color: #673ab7;
 $accent-color: #ffd740;
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; height: fit-content; }
 
 .mat-button.mat-primary .mat-button-focus-overlay {
   background-color: transparent;
 }
 
-.mat-raised-button:hover {
+.mat-raised-button:hover,
+.mat-mini-fab:hover {
   scale: 1.05;
 }
 

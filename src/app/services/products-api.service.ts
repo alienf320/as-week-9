@@ -25,7 +25,7 @@ interface CategoriesResponse {
 
 export class ProductsAPIService {
 
-  url = 'https://trainee-program-api.applaudostudios.com/api/v1/products'
+  url = 'https://trainee-program-api.applaudostudios.com/api/v1/products?include=master,category,image_attachment.blob'
   urlLikes = 'https://trainee-program-api.applaudostudios.com/api/v1/likes'
   urlCategories = 'https://trainee-program-api.applaudostudios.com/api/v1/categories'
   

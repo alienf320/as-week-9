@@ -23,18 +23,21 @@
 
     <div class="categories-container" *ngIf="categories">
       <h3>Categories</h3>
+      <div class="category" (click)="loadAllProducts()">All</div>
       <div class="category" (click)="filter(category.slug)" *ngFor="let category of categories">{{category.name}}</div>
     </div>
   
   </mat-drawer>
 
   <div class="products-container">
-    <div class="product-container" *ngFor="let prod of (products | async), let i=index;">
+    <div class="product-container" *ngFor="let prod of products | async, let i=index;">
       <mat-card>
         <mat-card-header>
           <mat-card-title> <a [routerLink]="prod.slug"> {{prod.name}}</a></mat-card-title>
           <mat-card-subtitle>{{prod.description}}</mat-card-subtitle>
-          <img src="../../../assets/image-not-found.png" alt="">
+          <div class="img-container">
+            <img [src]="prod.image.url" alt="" srcset="">
+          </div>
           <mat-card-actions>    
             <button mat-mini-fab color="accent" (click)="like(prod.id)"> <mat-icon>thumb_up</mat-icon></button>
             <button mat-mini-fab color="accent" (click)="dislike(prod.id)"> <mat-icon>thumb_down</mat-icon></button>

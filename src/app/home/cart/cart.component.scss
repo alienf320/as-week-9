@@ -1,73 +1,81 @@
-h2 {
-  text-align: center;
-  font-size: 1.6rem;
-  margin-top: 30px;
-}
+.container {
+  margin: 20px;
+  padding: 10px;
 
-.noItem {
-  line-height: 5;
-  font-weight: bold;
-  font-size: 1.3rem;
-  text-align: center;
-  border: 1px solid lightgrey;
-  border-radius: 20px;
-  width: 60%;
-  margin: 25px auto;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-.products-container, noItem {
-  margin: 10px;
-  padding: 15px;
-
-  .product {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    margin: 15px;
+  h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin: 35px auto;
+    margin-bottom: 50px;
+  }
+  
+  .noItem {
+    line-height: 5;
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-align: center;
     border: 1px solid lightgrey;
     border-radius: 20px;
+    width: 60%;
+    margin: 25px auto;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-    h4 {
-      width: 300px;
-    }
-
-    .amount {
+  }
+  
+  .products-container, noItem {
+    margin: 10px;
+    padding: 15px;
+  
+    .product {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: space-around;
-
-      
-
-      input {
-        margin: 0 10px;
-        font-size: 1.1rem;
+      padding: 20px;
+      margin: 15px;
+      border: 1px solid lightgrey;
+      border-radius: 20px;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  
+      h4 {
+        width: 300px;
+      }
+  
+      .amount {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+  
+        
+  
+        input {
+          margin: 0 10px;
+          font-size: 1.1rem;
+          font-weight: bold;
+          text-align: center;
+          width: 30px;
+          line-height: 2;
+        }
+      }
+  
+      .price {
+        width: 60px;
         font-weight: bold;
-        text-align: center;
-        width: 30px;
-        line-height: 2;
       }
     }
-
-    .price {
-      width: 60px;
-      font-weight: bold;
-    }
   }
+  
+  .total-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 300px;
+    border: 2px solid lightgrey;
+    padding: 15px;
+    float: right;
+    margin-right: 45px;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
 }
 
-.total-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 300px;
-  border: 2px solid lightgrey;
-  padding: 15px;
-  float: right;
-  margin-right: 45px;
-  border-radius: 15px;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
