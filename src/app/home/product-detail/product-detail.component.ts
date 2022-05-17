@@ -45,7 +45,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   openSnackBar(product: Product) {
-    this.snackbar.open(`${product.name} has been added to your shopping cart`, '' ,{ duration: 3000, panelClass: ['snack-light']});
+    this.snackbar.open(`${product.name} has been added to your shopping cart`, '' ,{ duration: 2000, panelClass: ['snack-light']});
   }
 
 }

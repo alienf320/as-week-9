@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { select, Store } from '@ngrx/store';
-import { catchError, Observable, Subscription, tap } from 'rxjs';
+import { catchError, Observable, Subscription, tap, take } from 'rxjs';
+import { Cart, CartItem } from 'src/app/interfaces/cartResponse';
 import { Category } from 'src/app/interfaces/Category';
 import { Product } from 'src/app/interfaces/Product';
+import { CartAPIService } from 'src/app/services/cart-api.service';
 import { ProductsAPIService } from 'src/app/services/products-api.service';
 import { AppState } from 'src/app/shared/appState.interface';
 import { HomeActions } from '../home-types';
@@ -23,18 +25,22 @@ export class ProductsComponent implements OnInit {
   showCategories = false;
   subs!: Subscription;
   actualPage!: PageEvent;
+  cartItems!: Observable<CartItem[]>;
 
   constructor(
     private store: Store<AppState>, 
     private productsService: ProductsAPIService,
-    private snackbar: MatSnackBar) { }
+    private snackbar: MatSnackBar,
+    private cartService: CartAPIService) { }
   
-  ngOnInit(): void {    
+  ngOnInit(): void {        
+    this.store.dispatch( HomeActions.getAllCartProducts() )
     this.onPageChange({pageIndex: 0, pageSize: 10, length: 100});
     this.subs = this.productsService.getCategories()
     .subscribe( resp => resp.data.forEach( elem => {
       this.categories.push(elem); 
     }))
+    this.cartItems = this.store.select( store => store.home.cart.cart.items )
   }
   
   loadAllProducts() {
@@ -80,8 +86,22 @@ export class ProductsComponent implements OnInit {
     )
   }
 
-  buy(product: Product) {
-    this.store.dispatch(HomeActions.buyItem({product}))
+  addToCart(product: Product) {
+    this.cartItems.pipe(take(1)).subscribe( cartItem => {
+      let aux = cartItem.filter( item => {
+        return item.product_id == +product.id
+      })
+      if(aux[0]) {
+        this.store.dispatch(HomeActions.sendItemChange({
+          id: aux[0].id, 
+          quantity: aux[0].quantity, 
+          action: 'increase', 
+          cartItemVariant: aux[0].product_variant_id
+        }))
+      } else {
+        this.store.dispatch(HomeActions.buyItem({product}))
+      }
+    })
   }
 
   openSnackBar(product: Product) {
