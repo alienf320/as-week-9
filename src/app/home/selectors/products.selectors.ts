@@ -14,3 +14,8 @@ export const selectProductsLoaded = createSelector(
   selectProductsFeature,
   state => state.home.loaded
 );
+
+export const selectAllCartProducts = createSelector(
+  selectProductsFeature,
+  state => state.cart.cart.items
+);

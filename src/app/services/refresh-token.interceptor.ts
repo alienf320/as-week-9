@@ -26,9 +26,11 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
       // console.log('req', req)
       
       return next.handle(req).pipe( catchError( (err: HttpErrorResponse) => {
-          if(err.status === 401 && !this.isRefreshing) {
+        console.log('entro al interceptor', err.status)
+          if(err.status === 401) {
+            console.log('entro al error interceptor')
             this.isRefreshing = true;
-            return this.http.post( "https://trainee-program-api.applaudostudios.com/api/v1/users/login", {"data": {"email": "trainee1@example.com", "password": "Trainee$1"}} )
+            return this.http.post( "https://trainee-program-api.applaudostudios.com/api/v1/users/login", {"data": {"email": "trainee3@example.com", "password": "Trainee$3"}} )
             .pipe(
               map( resp => (resp as ServerResponseI)),
               switchMap( (res) => {
@@ -37,12 +39,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
               })
             )
           } else {
-            return this.refreshTokenSubject.pipe(
-              filter(token => token != null),
-              take(1),
-              switchMap(jwt => {
-                return next.handle(this.addToken(request, jwt));
-              }));
+            return next.handle(request)
           }
         }));
     } 

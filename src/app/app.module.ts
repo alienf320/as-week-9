@@ -17,6 +17,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './login/login.effects';
 import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
+import { ToCamelCase } from './services/toCamelCase.interceptor';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
+    
+    // { provide: HTTP_INTERCEPTORS, useClass: ToCamelCase, multi: true },
   ],
   bootstrap: [AppComponent]
 })

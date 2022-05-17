@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { Product } from "../interfaces/Product";
+import { Cart, CartResponse } from "../interfaces/cartResponse";
 
 
 export const getProducts = createAction(
@@ -44,7 +45,17 @@ export const buyItem = createAction(
   props<{product: Product}>()
 )
 
-export const changeAmountItem = createAction(
+export const errorBuyingItem = createAction(
+  "[From Server] Error trying to add a product",
+  props<{error: any}>()
+)
+
+export const cartReceived = createAction(
+  "[From Server] Cart Received",
+  props<{cart: Cart}>()
+)
+
+export const sendItemChange = createAction(
   "[From Cart] Increase Item",
-  props<{id: string, action: string}>()
+  props<{id: number, quantity: number, action: string, cartItemVariant: any}>()
 )

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, of, tap} from 'rxjs';
+import { Observable, of, tap} from 'rxjs';
 
 import { UserAPIService } from 'src/app/services/user-api.service';
 import { LoginActions } from '../login/login-types';
@@ -22,7 +22,6 @@ export class NavbarComponent implements OnInit {
     private store: Store<UserState>) { }
 
   ngOnInit(): void {
-    console.log('loggedIn', this.auth.loggedIn.value)
     this.user = this.auth.loggedIn.value ? this.getUserFromLocalStorage() : this.store.pipe( 
       select( state => state.user ), 
        // tap( data => console.log(data))
@@ -34,7 +33,6 @@ export class NavbarComponent implements OnInit {
   }
 
   getUserFromLocalStorage(): Observable<any> {
-    console.log('user', JSON.parse(localStorage.getItem('user')!))
     return of(
       { 
         user: {

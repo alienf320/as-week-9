@@ -1,8 +1,8 @@
 export interface CartResponse {
-  data: Data;
+  data: Cart;
 }
 
-interface Data {
+export interface Cart {
   id:           number;
   user_id:      number;
   number:       number;

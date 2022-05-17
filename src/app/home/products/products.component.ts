@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subscription, tap } from 'rxjs';
+import { catchError, Observable, Subscription, tap } from 'rxjs';
 import { Category } from 'src/app/interfaces/Category';
 import { Product } from 'src/app/interfaces/Product';
 import { ProductsAPIService } from 'src/app/services/products-api.service';
@@ -40,9 +40,7 @@ export class ProductsComponent implements OnInit {
   loadAllProducts() {
     this.products = this.store.pipe( 
       select( state => state.home.home.products
-        .slice(this.actualPage.pageIndex * this.actualPage.pageSize, this.actualPage.pageIndex*this.actualPage.pageSize + this.actualPage.pageSize)  ), 
-      
-      // tap( data => console.log(data)) 
+        .slice(this.actualPage.pageIndex * this.actualPage.pageSize, this.actualPage.pageIndex*this.actualPage.pageSize + this.actualPage.pageSize)  )
     )
   }
 
@@ -52,12 +50,11 @@ export class ProductsComponent implements OnInit {
       select( state => state.home.home.products
         .slice($event.pageIndex * $event.pageSize, $event.pageIndex*$event.pageSize + $event.pageSize) 
       ),
-      tap( (p)=> console.log(p))
+      // tap( (p)=> console.log(p))
     )
   }
 
   like(id: string) {
-    console.log('id', id);
     this.store.dispatch(HomeActions.like({id, action: "up"}))
   }
 
@@ -79,11 +76,7 @@ export class ProductsComponent implements OnInit {
     this.products = this.store.pipe( 
       select( state => state.home.home.products
         .filter(product => product.category.slug == slug)
-        // .slice(this.actualPage.pageIndex * this.actualPage.pageSize, this.actualPage.pageIndex*this.actualPage.pageSize + this.actualPage.pageSize)
-      ), 
-      
-      // tap( data => console.log(data)) 
-    // this.products = this.productsService.getProductsByCategory(slug).subscribe()
+      )
     )
   }
 

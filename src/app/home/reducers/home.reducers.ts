@@ -1,4 +1,5 @@
 import { combineReducers, createReducer, on } from "@ngrx/store"
+import { Cart, CartResponse } from "src/app/interfaces/cartResponse"
 import { Product } from "src/app/interfaces/Product"
 import { HomeActions } from "../home-types"
 
@@ -55,76 +56,30 @@ export interface ProductOfCart {
 }
 
 export interface CartState {
-  products: ProductOfCart[]
+  cart: Cart
 }
 
-export const initialCartState: CartState = { products: [] }
+export const initialCartState: CartState = { cart: {  
+  id:           0,
+  user_id:      0,
+  number:       0,
+  status:       '',
+  total:        '',
+  total_items:  '',
+  completed_at: null,
+  created_at:   new Date(),
+  items:        [],
+}}
 
 export const cartReducer = createReducer(
   initialCartState,
 
-  on(HomeActions.buyItem,
-    (state, {product}) => { 
-      let prod!: ProductOfCart;
-      let arrOfProdCart!: ProductOfCart[];
-      let price!: number;
-      let oldProduct = state.products.find( p => p.product.name == product.name)
-      let amount = oldProduct?.amount
-
-      if(!amount) {
-        console.log('entro porque no hay amount')
-        price = randomPrice()
-        amount = 1;
-        arrOfProdCart = [...state.products]
-      } else {
-        amount++;
-        price = oldProduct!.price;
-        let idx = [...state.products].findIndex( p => p.product.name == product.name)
-        arrOfProdCart = [...state.products]
-        arrOfProdCart.splice(idx,1)
-      }
-      prod = {product, price, amount}
-      arrOfProdCart.push(prod)
-      // console.log('array despues del pucs', arrOfProdCart)
-      
-      return {...state, products: arrOfProdCart}   
+  on(HomeActions.cartReceived,
+    (state, {cart}) => { 
+      return {...state, cart: cart}   
     }
   ),
-  on(HomeActions.changeAmountItem,
-    (state, {id, action}) => { 
-      let prod!: ProductOfCart;
-      let arrOfProdCart!: any;
-      let price!: number;
-      let oldProduct = state.products.find( p => p.product.id == id) as ProductOfCart
-      let amount = oldProduct!.amount
-
-      if(action == 'increase') {
-        amount++;
-      } else if (amount !== 0) {
-        amount--;
-      }
-
-      price = oldProduct!.price;
-      let idx = [...state.products].findIndex( p => p.product.id == id)
-      // console.log('idx', idx)
-      arrOfProdCart = [...state.products]
-      // console.log('array antes del splice', arrOfProdCart, idx)
-      prod = {product: oldProduct.product, price, amount}
-      arrOfProdCart.splice(idx,1,prod)
-      // console.log('array despues del splice', arrOfProdCart, idx)
-
-      // arrOfProdCart.push(prod)
-      return {...state, products: arrOfProdCart}   
-    }
-  )
-
 )
-
-function randomPrice(): number {
-  let min = 0;
-  let max = 10;
-  return +(Math.random() * (max - min + 1) + min).toFixed(2)
-}
 
 export const reducers = combineReducers({
   home: homeReducer,

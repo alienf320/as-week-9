@@ -27,15 +27,12 @@ export class ProductDetailComponent implements OnInit {
   }
   
   loadAllProducts() {
-    console.log(this.routeActive.snapshot.paramMap.get('slug'));
     this.products = this.store.pipe( 
       select( state => state.home.home.products.filter( p => p.slug === this.routeActive.snapshot.paramMap.get('slug')) ), 
-      // tap( data => console.log(data)) 
     )
   }
 
   like(id: string) {
-    console.log('id', id);
     this.store.dispatch(HomeActions.like({id, action: "up"}))
   }
 

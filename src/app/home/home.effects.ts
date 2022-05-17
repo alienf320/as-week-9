@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 
-import { BehaviorSubject, catchError, exhaustMap, map, of, switchMap, tap } from "rxjs";
-import { AuthService } from "../services/auth-service.service";
+import { BehaviorSubject, catchError, exhaustMap, map, of, switchMap, tap, throwError } from "rxjs";
+import { Cart } from "../interfaces/cartResponse";
+import { CartAPIService } from "../services/cart-api.service";
 import { ProductsAPIService } from "../services/products-api.service";
 import { HomeActions } from "./home-types";
 
@@ -14,6 +14,7 @@ export class HomeEffects {
 
   ProductsLoaded = new BehaviorSubject(false);
   ProductsLoaded$ = this.ProductsLoaded.asObservable();
+  cartAux!: Cart;
   
   productsRequest$ = createEffect( () => 
     this.actions$.pipe(
@@ -29,7 +30,6 @@ export class HomeEffects {
       );
     }))
   );
-
   
   like$ = createEffect( () => {
     let id: string;
@@ -44,23 +44,62 @@ export class HomeEffects {
         return this.productsServices.giveLike(action.id, action.action)}
       ),
       catchError( (err) => {
-        console.log('catchError', id, word)
         return of(HomeActions.likeFailed({id, action: word}))
       }),
     )}, {dispatch: false}
-  )
+  );
 
-  productsResponse$ = createEffect( () =>
+  getAllCartProducts$ = createEffect( () =>
     this.actions$.pipe(
-      ofType(HomeActions.productsFailed),
+      ofType(HomeActions.getAllCartProducts),
+      switchMap( (action) => {
+        return this.cartServices.getCart().pipe(
+          map( resp => HomeActions.cartReceived( {cart: resp} )),
+        )
+      })
+    )
+  );
 
-    ), {dispatch: false}
+  cartResponse$ = createEffect( () => {
+    return this.actions$.pipe(
+      ofType(HomeActions.buyItem),
+      switchMap( (action) => {
+        return this.cartServices.addItem(+action.product.id).pipe(
+          map( resp => {
+            return HomeActions.cartReceived( {cart: resp}  )
+          }),
+          catchError( error => {
+            return of(HomeActions.errorBuyingItem( error )) 
+          }),
+        )
+      })
+    )
+  }
   )
+
+  cartErrorResponse$ = createEffect( () =>
+    this.actions$.pipe(
+      ofType(HomeActions.errorBuyingItem),
+      tap( err => console.log('error', err))
+    ), {dispatch: false})
+
+  changeItemQuantity$ = createEffect( () =>
+  this.actions$.pipe(
+    ofType(HomeActions.sendItemChange),
+    switchMap( (action) => {
+      return this.cartServices.modifyCartItem(action.id, action.quantity, action.action, action.cartItemVariant).pipe(
+        // tap( action => {
+        //   this.ProductsLoaded.next(true);
+        // }),
+        map( resp => HomeActions.cartReceived( {cart: resp} )),
+      )
+    })
+  )
+)
       
   constructor(
     private actions$: Actions, 
-    private auth: AuthService,
     private productsServices: ProductsAPIService,
-    private router: Router) { }
+    private cartServices: CartAPIService) { }
 
 }
