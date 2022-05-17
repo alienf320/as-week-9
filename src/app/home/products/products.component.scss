@@ -56,7 +56,7 @@ mat-paginator {
 
   .product-container {
     min-width: 300px;
-    max-height: 473px;
+    max-height: 485px;
     transition: 0.25s;
 
     mat-card {
@@ -81,14 +81,35 @@ mat-paginator {
           object-fit: contain;
         }
       }
-
     
-      mat-card-actions {
+      .mat-card-actions {
         display: flex;
         justify-content: space-around;
         align-items: center;
         margin: 0;
-        margin-top: 15px;
+        margin-top: 25px;
+
+        .mat-raised-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          mat-icon {
+            margin-left: 9px;
+          }
+        }
+      }
+
+      .add-cart-container {
+        margin-top: 5px;
+        .mat-raised-button {
+          padding: 5px;
+          font-size: 1.1rem;
+
+          mat-icon {
+            margin: 0;
+          }
+        }
       }
     }
   }
@@ -101,4 +122,12 @@ mat-paginator {
   span {
     text-align: center;
   }
+}
+
+.mat-button-wrapper {
+  padding: 8px 0;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }

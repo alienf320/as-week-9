@@ -35,15 +35,8 @@ export class CartAPIService {
     };
 
     return this.http.put<CartResponse>(this.urlCart, bodyCartItem).pipe( 
-      map( resp => {
-        // if(resp.data) {
-          console.log(resp.data)
-          return resp.data
-        // } else return resp.data}),
-      })
-      // catchError( error => {
-      //   return throwError( () => new Error('mensaje de error'))})
-      )
+      map( resp => resp.data)
+    )
   }
 
   modifyCartItem(id: number, quantity: number, action: string, cartItemVariant: any): Observable<Cart> {

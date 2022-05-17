@@ -18,6 +18,13 @@ interface CategoriesResponse {
   ];
 }
 
+interface LikeResponse {
+  data: {
+    product_id: number, 
+    kind: 1|0
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,8 +43,8 @@ export class ProductsAPIService {
     // .pipe(map(data => data.data))
   }
 
-  giveLike(id: string, action: string) {
-    return this.http.post(this.urlLikes, {
+  giveLike(id: string, action: string): Observable<LikeResponse> {
+    return this.http.post<LikeResponse>(this.urlLikes, {
       data: { product_id: id, kind: action },
     });
   }

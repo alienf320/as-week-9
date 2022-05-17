@@ -4,27 +4,10 @@
   <span>AppRoutes</span>
   <span class="example-spacer"></span>
 
-  <!-- <mat-button-toggle-group name="nav-buttons" aria-label="Font Style">
-    <mat-button-toggle value="Home" color="accent"
-    routerLink="/home/home"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{exact: true}"
-    *ngIf="auth.loggedIn$ | async"><mat-icon>home</mat-icon></mat-button-toggle>
-    <mat-button-toggle value="My Cart" color="accent"
-    routerLink="/home/mycart"
-    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-    *ngIf="auth.loggedIn$ | async">><mat-icon>shopping_cart</mat-icon></mat-button-toggle>
-    <mat-button-toggle value="My Cart" color="accent"
-    [matMenuTriggerFor]="menu"
-    *ngIf="auth.loggedIn$ | async">
-    <mat-icon>person</mat-icon>
-    </mat-button-toggle>   
-  </mat-button-toggle-group> -->
-  
-  <!-- <button 
-    mat-mini-fab
+  <button 
+    mat-flat-button
     class="example-icon favorite-icon" 
-    color="accent"
+    color="primary"
     routerLink="/home/home"
     routerLinkActive="active"
     [routerLinkActiveOptions]="{exact: true}"
@@ -32,53 +15,25 @@
     <mat-icon>home</mat-icon>
   </button>
   <button 
-    mat-mini-fab
+    mat-flat-button
     class="example-icon favorite-icon" 
-    color="accent"
+    color="primary"
     routerLink="/home/mycart"
     routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
     *ngIf="auth.loggedIn$ | async">
     <mat-icon>shopping_cart</mat-icon>
   </button>
   <button 
-    mat-mini-fab
+    mat-flat-button
     class="example-icon favorite-icon" 
-    color="accent"
+    color="primary"
     [matMenuTriggerFor]="menu"
     *ngIf="auth.loggedIn$ | async">
     <mat-icon>person</mat-icon>
-  </button> -->
-
-  <button 
-  mat-flat-button
-  class="example-icon favorite-icon" 
-  color="primary"
-  routerLink="/home/home"
-  routerLinkActive="active"
-  [routerLinkActiveOptions]="{exact: true}"
-  *ngIf="auth.loggedIn$ | async">
-  <mat-icon>home</mat-icon>
-</button>
-<button 
-  mat-flat-button
-  class="example-icon favorite-icon" 
-  color="primary"
-  routerLink="/home/mycart"
-  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-  *ngIf="auth.loggedIn$ | async">
-  <mat-icon>shopping_cart</mat-icon>
-</button>
-<button 
-  mat-flat-button
-  class="example-icon favorite-icon" 
-  color="primary"
-  [matMenuTriggerFor]="menu"
-  *ngIf="auth.loggedIn$ | async">
-  <mat-icon>person</mat-icon>
-</button>
+  </button>
 
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="logOut()">Log Out</button>
+    <button mat-raised-button color="accent" (click)="logOut()">Log Out</button>
     <div class="mini-title">User Info</div>
     <div class="info-user" *ngIf="user | async as userV$">
         <div>id:</div>

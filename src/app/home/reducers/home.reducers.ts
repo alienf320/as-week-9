@@ -19,19 +19,30 @@ export const homeReducer = createReducer(
       return {...state, ...aux} 
     }
   ),
-  on(HomeActions.like,
-    (state, {id}) => { 
-      let idx = state.products.findIndex( prod => prod.id == id );
-      let aux = JSON.parse(JSON.stringify(state));
-      aux.products[idx].likes_count = (+aux.products[idx].likes_count + 1) + '';
-      return {...state, products: aux.products} 
-    }),
-  on(HomeActions.dislike,
-    (state, {id}) => { 
-      let idx = state.products.findIndex( prod => prod.id == id );
-      let aux = JSON.parse(JSON.stringify(state));
-      aux.products[idx].likes_count = (+aux.products[idx].likes_count - 1) + '';
-      return {...state, products: aux.products} 
+  // on(HomeActions.like,
+  //   (state, {id}) => { 
+  //     let idx = state.products.findIndex( prod => prod.id == id );
+  //     let aux = JSON.parse(JSON.stringify(state));
+  //     aux.products[idx].likes_count = (+aux.products[idx].likes_count + 1) + '';
+  //     return {...state, products: aux.products} 
+  //   }),
+  // on(HomeActions.dislike,
+  //   (state, {id}) => { 
+  //     let idx = state.products.findIndex( prod => prod.id == id );
+  //     let aux = JSON.parse(JSON.stringify(state));
+  //     aux.products[idx].likes_count = (+aux.products[idx].likes_count - 1) + '';
+  //     return {...state, products: aux.products} 
+  //   }),
+  on(HomeActions.likeResponse,
+    (state, likeResponse) => {
+      let idx = state.products.findIndex( prod => +prod.id == likeResponse.productId )
+      let aux: ProductsState = JSON.parse(JSON.stringify(state));
+      if(likeResponse.kind === 0){
+        aux.products[idx].likes_down_count = aux.products[idx].likes_down_count + 1;
+      } else {
+        aux.products[idx].likes_up_count = aux.products[idx].likes_up_count + 1;
+      }
+      return {...state, products: aux.products}
     }),
   on(HomeActions.likeFailed,
     (state, action) => {

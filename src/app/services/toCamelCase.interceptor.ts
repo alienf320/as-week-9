@@ -14,7 +14,6 @@ export class ToCamelCase implements HttpInterceptor {
             .map( (item: any) => mapKeys( item, (v, k) => {
               let aux = camelCase(k);              
               aux = aux.replace('_', '');
-              // console.log(k, aux)
               return k.replace('_', '')} ))
           const modEvent = event.clone({ body: camelCaseObject });
           

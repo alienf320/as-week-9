@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { Product } from "../interfaces/Product";
 import { Cart, CartResponse } from "../interfaces/cartResponse";
+import { create } from "lodash";
 
 
 export const getProducts = createAction(
@@ -23,8 +24,13 @@ export const like = createAction(
 )
 
 export const dislike = createAction(
-  "[From Products] Give Disike",
+  "[From Products] Give Dislike",
   props<{id: string, action: string}>()
+)
+
+export const likeResponse = createAction(
+  "[From Server] Update Likes from Response",
+  props<{productId: number, kind: 0|1}>()
 )
 
 export const likeFailed = createAction(

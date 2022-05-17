@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
   constructor( private store: Store<AppState>) { }
 
   ngOnInit(): void {    
-    
+    this.store.dispatch( HomeActions.getAllCartProducts() )
     this.products$ = this.store.pipe( select( selectAllCartProducts ))
     this.total$ = this.store.pipe( select( state => +state.home.cart.cart.items.reduce( (acc, item) => acc + (+item.price * item.quantity), 0)))
   }

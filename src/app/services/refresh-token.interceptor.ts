@@ -23,12 +23,9 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     let token = localStorage.getItem('token')
     if(token) {
       const req = this.addToken(request, token)
-      // console.log('req', req)
       
       return next.handle(req).pipe( catchError( (err: HttpErrorResponse) => {
-        console.log('entro al interceptor', err.status)
           if(err.status === 401) {
-            console.log('entro al error interceptor')
             this.isRefreshing = true;
             return this.http.post( "https://trainee-program-api.applaudostudios.com/api/v1/users/login", {"data": {"email": "trainee3@example.com", "password": "Trainee$3"}} )
             .pipe(

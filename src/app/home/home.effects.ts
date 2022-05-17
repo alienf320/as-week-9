@@ -35,18 +35,20 @@ export class HomeEffects {
     let id: string;
     let word: string;
     return this.actions$.pipe(
-      ofType(HomeActions.like || HomeActions.dislike),
+      ofType(HomeActions.like, HomeActions.dislike),
       tap(action => {
         id = action.id;
         word = action.action
       }),
       switchMap( (action) => {
-        return this.productsServices.giveLike(action.id, action.action)}
+        return this.productsServices.giveLike(action.id, action.action).pipe(
+          map( resp => HomeActions.likeResponse({productId: resp.data.product_id, kind: resp.data.kind}))
+        )}
       ),
       catchError( (err) => {
         return of(HomeActions.likeFailed({id, action: word}))
       }),
-    )}, {dispatch: false}
+    )}
   );
 
   getAllCartProducts$ = createEffect( () =>
@@ -80,7 +82,7 @@ export class HomeEffects {
   cartErrorResponse$ = createEffect( () =>
     this.actions$.pipe(
       ofType(HomeActions.errorBuyingItem),
-      tap( err => console.log('error', err))
+
     ), {dispatch: false})
 
   changeItemQuantity$ = createEffect( () =>
